@@ -19,100 +19,17 @@
     }
 
 </style>
-<body onload="init()">
+<body>
 
 <canvas id="brock"></canvas>
-<img id="brCherry" src="images/cherry.png" style="display: none;">
-<img id="brDefault" src="images/default.png" style="display: none;">
-<img id="plRed" src="images/pl_red_default.png" style="display: none;">
-<img id="plBlue" src="images/pl_blue_default.png" style="display: none;">
+<!-- TODO исправить блоки, чтобы шарик не стучался об невидимые -->
+<!-- TODO отлавливать победу -->
+<!-- TODO подумать над формулой вычисления угла отскока шарика -->
+<!-- TODO рефакторинг с помощью прототипного наследования -->
+<!-- TODO сократить границы -->
+
 
 <script src="config.js"></script>
-<script type="application/javascript">
-    var canv, ctx,
-        plats = [], bricks = [],
-        imageList = [brCherry, brDefault, plRed, plBlue];
-
-    init();
-
-    function Brick(x, y, type) {
-        this.x = x;
-        this.y = y;
-        this.type = type;
-    }
-
-    function init() {
-
-        // bricks
-        for (let x = 0; x < cfg.bricksCnt.row; x++) {
-            bricks[x] = [];
-
-            for (let y = 0; y < cfg.bricksCnt.col; y++) {
-                bricks[x][y] = new Brick(x, y, 'default');
-            }
-        }
-        // for (var x = 0; x < cfg.bricksCnt.col; x++) {
-        //     for (var y = 0; y < cfg.bricksCnt.row; y++) {
-        //         // logic with bricks
-        //     }
-        // }
-
-
-        // init plats
-        plats[0] = {
-            x: 0,
-            y: cfg.dispSize['y'] / 2 - Math.floor(imageList[2].height / 2),
-        };
-        plats[1] = {
-            x: cfg.dispSize['x'] - imageList[3].width,
-            y: cfg.dispSize['y'] / 2 - Math.floor(imageList[3].height / 2),
-        }
-
-
-        // init canv
-        canv = document.getElementById("brock");
-        ctx = canv.getContext("2d");
-
-        canv.width = cfg.dispSize['x'];
-        canv.height = cfg.dispSize['y'];
-        paint();
-    }
-
-    function paint() {
-        ctx.clearRect(0, 0, cfg.dispSize['x'], cfg.dispSize['y']);
-        var brBeginCords = calcBrPos();
-        var brc = (cfg.dispSize['x'] / 2) - (cfg.bricksCnt.row * cfg.bricksSpace.x / 2) + ((cfg.bricksSpace.x - cfg.bricksSize.x) / 2);
-
-        // bricks
-        for (let x = 0; x < cfg.bricksCnt.row; x++) {
-            for (let y = 0; y < cfg.bricksCnt.col; y++) {
-                ctx.drawImage(imageList[1],
-                    brc + (x * cfg.bricksSpace.x),
-                    brBeginCords[1] + y * cfg.bricksSpace.y,
-                    cfg.bricksSize.x,
-                    cfg.bricksSize.y);
-            }
-        }
-
-        // plats
-        ctx.drawImage(imageList[2], plats[0].x, plats[0].y, 25, 135);
-        ctx.drawImage(imageList[3], plats[1].x, plats[1].y, 25, 135);
-    }
-
-    function calcBrPos() {
-        var midRow = Math.floor(bricks.length / 2);
-        var midCol = Math.floor(bricks[midRow].length / 2);
-
-        return [
-            cfg.dispSize['x'] / 2 - (midRow * cfg.bricksSpace.x),
-            cfg.dispSize['y'] / 2 - (midCol * cfg.bricksSpace.y + Math.floor(imageList[1].height / 2)),
-        ];
-    }
-
-    window.addEventListener('click', function (e) {
-        console.log(e.offsetX);
-    })
-
-</script>
+<script src="game.js"></script>
 </body>
 </html>

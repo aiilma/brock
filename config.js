@@ -4,7 +4,7 @@ var cfg = {
         'y': 480,
     },
     'bricksCnt': {
-        'row': 14,
+        'row': 6,
         'col': 3,
     },
     'bricksSize': {
@@ -15,4 +15,4 @@ var cfg = {
 };
 
 cfg['bricksSpace']['x'] = 45;
-cfg['bricksSpace']['y'] = 105;
+cfg['bricksSpace']['y'] = 90;
